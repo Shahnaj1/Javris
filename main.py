@@ -8,10 +8,10 @@
 # For Linux: sudo apt-get install python3-pyaudio
 # For Mac: brew install portaudio && pip install PyAudio
 
-# import datetime
+import datetime
 # import os
 # import sys
-# import time
+import time
 # import webbrowser
 # import pyautogui
 import pyttsx3 #!pip install pyttsx3
@@ -65,7 +65,7 @@ def speak(text):
     engine.say(text)
     engine.runAndWait()
 
-speak("Hello I am shahnaz")
+# speak("Hello I am shahnaz")
 
 def command():
     r = sr.Recognizer()
@@ -103,46 +103,39 @@ def command():
         speak("Something went wrong. Please try again.")
         return "none"
 
+
+
+def cal_day():
+    day = datetime.datetime.today().weekday() + 1
+    day_dict={
+        1:"Monday",
+        2:"Tuesday",
+        3:"Wednesday",
+        4:"Thursday",
+        5:"Friday",
+        6:"Saturday",
+        7:"Sunday"
+    }
+    if day in day_dict.keys():
+        day_of_week = day_dict[day]
+        print(day_of_week)
+    return day_of_week
+
+def wishMe():
+    hour = int(datetime.datetime.now().hour)
+    t = time.strftime("%I:%M:%p")
+    day = cal_day()
+
+    if(hour>=0) and (hour<=12) and ('AM' in t):
+        speak(f"Good morning Shahnaz, it's {day} and the time is {t}")
+    elif(hour>=12)  and (hour<=16) and ('PM' in t):
+        speak(f"Good afternoon Shahnaz, it's {day} and the time is {t}")
+    else:
+        speak(f"Good evening Shahnaz, it's {day} and the time is {t}")
+
+
 if __name__ == "__main__":
-    speak("Hello, I am ready to listen. Say 'exit' or 'quit' to stop.")
-    while True:
-        query = command()
-        print(f"Command received: {query}")
-        
-        # Exit conditions
-        if query in ["exit", "quit", "stop", "bye"]:
-            speak("Goodbye!")
-            break
-        elif query != "none":
-            speak(f"You said: {query}")
-
-# def cal_day():
-#     day = datetime.datetime.today().weekday() + 1
-#     day_dict={
-#         1:"Monday",
-#         2:"Tuesday",
-#         3:"Wednesday",
-#         4:"Thursday",
-#         5:"Friday",
-#         6:"Saturday",
-#         7:"Sunday"
-#     }
-#     if day in day_dict.keys():
-#         day_of_week = day_dict[day]
-#         print(day_of_week)
-#     return day_of_week
-
-# def wishMe():
-#     hour = int(datetime.datetime.now().hour)
-#     t = time.strftime("%I:%M:%p")
-#     day = cal_day()
-
-#     if(hour>=0) and (hour<=12) and ('AM' in t):
-#         speak(f"Good morning Mishu, it's {day} and the time is {t}")
-#     elif(hour>=12)  and (hour<=16) and ('PM' in t):
-#         speak(f"Good afternoon Mishu, it's {day} and the time is {t}")
-#     else:
-#         speak(f"Good evening Mishu, it's {day} and the time is {t}")
+    wishMe()
 
 # def social_media(command):
 #     if 'facebook' in command:
